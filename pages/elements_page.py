@@ -1,5 +1,7 @@
+import random
+
 from generator.generator import generated_person
-from locators.elements_page_locator import TextBoxPageLocators
+from locators.elements_page_locator import TextBoxPageLocators, CheckBoxLocators
 from pages.base_page import BasePage
 
 
@@ -25,3 +27,34 @@ class TextBoxPage(BasePage):
         current_address = self.element_is_present(self.locators.CREATED_CURRENT_ADDRESS).text.split(":")[1]
         permanent_address = self.element_is_present(self.locators.CREATED_PERMANENT_ADDRESS).text.split(":")[1]
         return full_name, email, current_address, permanent_address
+
+
+class CheckBoxPage(BasePage):
+    locators = CheckBoxLocators()
+
+    def open_full_list(self):
+        self.element_is_visible(self.locators.EXPAND_ALL_BUTTON).click()
+
+    def click_on_random_checkbox(self):
+        item_list = self.elements_are_visible(self.locators.ITEM_LIST)
+        count = random.randint(7, 10)
+        while count != 0:
+            item = item_list[random.randint(1,16)]
+            self.go_to_element(item)
+            item.click()
+            count -= 1
+
+    def get_checked_checkboxes(self):
+        checked_list = self.elements_are_present(self.locators.CHECKED_ITEMS)
+        data = []
+        for item in checked_list:
+            item_title = item.find_element("xpath", ".//ancestor::span[@class='rct-text']")
+            data.append(item_title.text.split(".")[0].replace(" ", "").lower())
+        return data
+
+    def get_items_from_filed(self):
+        items = self.elements_are_present(self.locators.SELECTED_ITEMS_FIELD)
+        res = []
+        for item in items:
+            res.append(item.text.lower())
+        return res
