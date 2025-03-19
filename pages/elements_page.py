@@ -1,10 +1,10 @@
 import random
-import time
 
 from selenium.webdriver.support.select import Select
 
 from generator.generator import generated_person
-from locators.elements_page_locator import CheckBoxLocators, RadioButtonLocators, TextBoxPageLocators, WebTableLocators
+from locators.elements_page_locator import CheckBoxLocators, RadioButtonLocators, TextBoxPageLocators, WebTableLocators, \
+    ButtonsLocators
 from pages.base_page import BasePage
 
 
@@ -135,3 +135,24 @@ class WebTablePage(BasePage):
             self.go_to_element(row_amount_field)
             data.append(len(self.check_records_list()))
         return data
+
+
+class ButtonsPage(BasePage):
+    locators = ButtonsLocators()
+
+    def double_click(self):
+        self.action_double_click(self.locators.DOUBLE_CLICK_BUTTON)
+
+    def right_click(self):
+        self.action_right_click(self.locators.RIGHT_CLICK_BUTTON)
+
+    def dynamic_click(self):
+        self.element_is_visible(self.locators.DYNAMIC_BUTTON).click()
+
+    def check_status(self, action="right"):
+        actions = {
+            "double": self.locators.CONTROL_DOUBLE_CLICK_BUTTON,
+            "right": self.locators.CONTROL_RIGHT_CLICK_BUTTON,
+            "dynamic": self.locators.CONTROL_DYNAMIC_BUTTON,
+        }
+        return self.element_is_present(actions.get(action))

@@ -1,6 +1,4 @@
-import time
-
-from pages.elements_page import CheckBoxPage, RadioButtonPage, TextBoxPage, WebTablePage
+from pages.elements_page import CheckBoxPage, RadioButtonPage, TextBoxPage, WebTablePage, ButtonsPage
 
 
 class TestElements:
@@ -92,3 +90,29 @@ class TestElements:
             web_table_page.open()
             data = web_table_page.change_rows_amount()
             assert [5, 10, 20, 25, 50, 100] == data, "Rows amount not changed"
+
+    class TestButtons:
+
+        def test_double_click(self, driver):
+            button_page = ButtonsPage(driver, "https://demoqa.com/buttons")
+            button_page.open()
+            button_page.double_click()
+            result = button_page.check_status("double")
+            time.sleep(3)
+            assert result is not None, "Double click not worked"
+
+        def test_right_click(self, driver):
+            button_page = ButtonsPage(driver, "https://demoqa.com/buttons")
+            button_page.open()
+            button_page.right_click()
+            result = button_page.check_status("right")
+            time.sleep(4)
+            assert result is not None, "Double click not worked"
+
+        def test_dynamic_click(self, driver):
+            button_page = ButtonsPage(driver, "https://demoqa.com/buttons")
+            button_page.open()
+            button_page.dynamic_click()
+            result = button_page.check_status("dynamic")
+            assert result is not None, "Double click not worked"
+

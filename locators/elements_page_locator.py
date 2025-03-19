@@ -5,6 +5,7 @@ class TextBoxPageLocators:
     PERMANENT_ADDRESS = ("xpath", "//textarea[@id='permanentAddress']")
     SUBMIT = ("xpath", "//button[@id='submit']")
 
+    # control panel
     CREATED_FULL_NAME = ("xpath", "//p[@id='name']")
     CREATED_EMAIL = ("xpath", "//p[@id='email']")
     CREATED_CURRENT_ADDRESS = ("xpath", "//p[@id='currentAddress']")
@@ -29,6 +30,7 @@ class WebTableLocators:
     ADD_BUTTON = ("xpath", "//button[@id='addNewRecordButton']")
     SEARCH_FIELD = ("xpath", "//input[@id='searchBox']")
 
+    # row
     DELETE_ROW_BUTTON = ("xpath", "//span[@title='Delete']")
     EDIT_ROW_BUTTON = ("xpath", "//span[@title='Edit']")
 
@@ -43,4 +45,16 @@ class WebTableLocators:
 
     RECORD_ROWS = ("xpath", "//div[@class='rt-tr-group']")
     ROWS_AMOUNT = ("xpath", "//select[@aria-label='rows per page']")
+
+
+class ButtonsLocators:
+    # buttons
+    DOUBLE_CLICK_BUTTON = ("xpath", "//button[@id='doubleClickBtn']")
+    RIGHT_CLICK_BUTTON = ("xpath", "//button[@id='rightClickBtn']")
+    DYNAMIC_BUTTON = ("xpath", "//button[text()='Click Me']")
+
+    # control panel
+    CONTROL_DOUBLE_CLICK_BUTTON = ("xpath", "//p[@id='doubleClickMessage']")
+    CONTROL_RIGHT_CLICK_BUTTON = ("xpath", "//p[@id='rightClickMessage']")
+    CONTROL_DYNAMIC_BUTTON = ("xpath", "//p[@id='dynamicClickMessage']")
 
