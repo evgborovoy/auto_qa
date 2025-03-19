@@ -19,8 +19,26 @@ class CheckBoxLocators:
 
 
 class RadioButtonLocators:
-   YES_RADIO = ("xpath", "//label[@for='yesRadio']")
-   IMPRESSIVE_RADIO = ("xpath", "//label[@for='impressiveRadio']")
-   NO_RADIO = ("xpath", "//input[@id='noRadio']")
-   SELECTED_FIELD = ("xpath", "//span[@class='text-success']")
+    YES_RADIO = ("xpath", "//label[@for='yesRadio']")
+    IMPRESSIVE_RADIO = ("xpath", "//label[@for='impressiveRadio']")
+    NO_RADIO = ("xpath", "//input[@id='noRadio']")
+    SELECTED_FIELD = ("xpath", "//span[@class='text-success']")
+
+
+class WebTableLocators:
+    ADD_BUTTON = ("xpath", "//button[@id='addNewRecordButton']")
+    SEARCH_FIELD = ("xpath", "//input[@id='searchBox']")
+
+    DELETE_ROW_BUTTON = ("xpath", "//span[@title='Delete']")
+
+    # Add new record form
+    FIRSTNAME_FIELD = ("xpath", "//input[@id='firstName']")
+    LASTNAME_FIELD = ("xpath", "//input[@id='lastName']")
+    EMAIL_FIELD = ("xpath", "//input[@id='userEmail']")
+    AGE_FIELD = ("xpath", "//input[@id='age']")
+    SALARY_FIELD = ("xpath", "//input[@id='salary']")
+    DEPARTMENT_FIELD = ("xpath", "//input[@id='department']")
+    SUBMIT_BUTTON = ("xpath", "//button[@id='submit']")
+
+    RECORD_ROWS = ("xpath", "//div[@class='rt-tr-group']")
 

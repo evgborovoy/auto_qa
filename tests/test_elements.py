@@ -1,4 +1,4 @@
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage
+from pages.elements_page import CheckBoxPage, RadioButtonPage, TextBoxPage, WebTablePage
 
 
 class TestElements:
@@ -48,3 +48,20 @@ class TestElements:
             radio_button_page.open()
             result = radio_button_page.get_no_radio_status()
             assert result == False, "No radio button is enabled"
+
+    class TestWebTable:
+
+        def test_add_record(self, driver):
+            web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
+            web_table_page.open()
+            person_info = list(web_table_page.add_record())
+            rows = web_table_page.check_records_list()
+            assert person_info in rows, "Record not added"
+
+        def test_search_record(self, driver):
+            web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
+            web_table_page.open()
+            person_info = list(web_table_page.add_record())
+            web_table_page.search_record(person_info[0])
+            rows = web_table_page.check_records_list()
+            assert person_info in rows, f"Can't find {person_info} in table trough search field"
