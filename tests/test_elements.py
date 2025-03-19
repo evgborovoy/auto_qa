@@ -1,3 +1,5 @@
+import time
+
 from pages.elements_page import CheckBoxPage, RadioButtonPage, TextBoxPage, WebTablePage
 
 
@@ -65,3 +67,28 @@ class TestElements:
             web_table_page.search_record(person_info[0])
             rows = web_table_page.check_records_list()
             assert person_info in rows, f"Can't find {person_info} in table trough search field"
+
+        def test_edit_record(self, driver):
+            web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
+            web_table_page.open()
+            person = web_table_page.add_record()[1]
+            web_table_page.search_record(person)
+            changes = web_table_page.edit_person_info()
+            rows = web_table_page.check_records_list()
+            print(person, changes, rows, sep="\n")
+            assert changes in rows[0], "Record does not changed"
+
+        def test_delete_record(self, driver):
+            web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
+            web_table_page.open()
+            person = web_table_page.add_record()
+            web_table_page.search_record(person[3]) # find by email
+            web_table_page.delete_row()
+            rows = web_table_page.check_records_list()
+            assert person not in rows, "Record was not deleted"
+
+        def test_change_rows_amount(self, driver):
+            web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
+            web_table_page.open()
+            data = web_table_page.change_rows_amount()
+            assert [5, 10, 20, 25, 50, 100] == data, "Rows amount not changed"

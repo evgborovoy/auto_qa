@@ -30,6 +30,7 @@ class WebTableLocators:
     SEARCH_FIELD = ("xpath", "//input[@id='searchBox']")
 
     DELETE_ROW_BUTTON = ("xpath", "//span[@title='Delete']")
+    EDIT_ROW_BUTTON = ("xpath", "//span[@title='Edit']")
 
     # Add new record form
     FIRSTNAME_FIELD = ("xpath", "//input[@id='firstName']")
@@ -41,4 +42,5 @@ class WebTableLocators:
     SUBMIT_BUTTON = ("xpath", "//button[@id='submit']")
 
     RECORD_ROWS = ("xpath", "//div[@class='rt-tr-group']")
+    ROWS_AMOUNT = ("xpath", "//select[@aria-label='rows per page']")
 

@@ -1,4 +1,7 @@
 import random
+import time
+
+from selenium.webdriver.support.select import Select
 
 from generator.generator import generated_person
 from locators.elements_page_locator import CheckBoxLocators, RadioButtonLocators, TextBoxPageLocators, WebTableLocators
@@ -109,3 +112,26 @@ class WebTablePage(BasePage):
     def search_record(self, search_arg):
         self.element_is_present(self.locators.SEARCH_FIELD).send_keys(search_arg)
 
+    def edit_person_info(self):
+        person_info = next(generated_person())
+        age = person_info.age
+        self.element_is_visible(self.locators.EDIT_ROW_BUTTON).click()
+        self.element_is_visible(self.locators.AGE_FIELD).clear()
+        self.element_is_visible(self.locators.AGE_FIELD).send_keys(age)
+        self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
+        return str(age)
+
+    def delete_row(self):
+        self.element_is_visible(self.locators.DELETE_ROW_BUTTON).click()
+
+    def change_rows_amount(self):
+        options = [5, 10, 20, 25, 50, 100]
+        data = []
+        row_amount_field = self.element_is_present(self.locators.ROWS_AMOUNT)
+        self.go_to_element(row_amount_field)
+        dropdown = Select(row_amount_field)
+        for option in options:
+            dropdown.select_by_value(str(option))
+            self.go_to_element(row_amount_field)
+            data.append(len(self.check_records_list()))
+        return data
