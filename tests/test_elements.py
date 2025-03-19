@@ -1,6 +1,4 @@
-import time
-
-from pages.elements_page import TextBoxPage, CheckBoxPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage
 
 
 class TestElements:
@@ -28,3 +26,25 @@ class TestElements:
             checked_items = check_box_page.get_checked_checkboxes()
             control_list = check_box_page.get_items_from_filed()
             assert checked_items == control_list, "Selected items not match"
+
+    class TestRadioButton:
+
+        def test_yes_radio_button(self, driver):
+            radio_button_page = RadioButtonPage(driver, "https://demoqa.com/radio-button")
+            radio_button_page.open()
+            radio_button_page.click_on_radio("yes")
+            result = radio_button_page.get_selected_text()
+            assert result == "Yes", "Yes radio button not selected"
+
+        def test_impressive_radio_button(self, driver):
+            radio_button_page = RadioButtonPage(driver, "https://demoqa.com/radio-button")
+            radio_button_page.open()
+            radio_button_page.click_on_radio("impressive")
+            result = radio_button_page.get_selected_text()
+            assert result == "Impressive", "Impressive radio button not selected"
+
+        def test_no_radio_button_is_disabled(self, driver):
+            radio_button_page = RadioButtonPage(driver, "https://demoqa.com/radio-button")
+            radio_button_page.open()
+            result = radio_button_page.get_no_radio_status()
+            assert result == False, "No radio button is enabled"
