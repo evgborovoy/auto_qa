@@ -1,10 +1,10 @@
 import random
 
+import requests
 from selenium.webdriver.support.select import Select
 
 from generator.generator import generated_person
-from locators.elements_page_locator import CheckBoxLocators, RadioButtonLocators, TextBoxPageLocators, WebTableLocators, \
-    ButtonsLocators
+from locators.elements_page_locator import *
 from pages.base_page import BasePage
 
 
@@ -156,3 +156,13 @@ class ButtonsPage(BasePage):
             "dynamic": self.locators.CONTROL_DYNAMIC_BUTTON,
         }
         return self.element_is_present(actions.get(action))
+
+
+class LinksPage(BasePage):
+    locators = LinksPageLocators()
+
+    def open_new_tab_link(self):
+        self.element_is_visible(self.locators.LINK).click()
+        self.switch_to_new_tab(-1)
+        url = self.driver.current_url
+        return url

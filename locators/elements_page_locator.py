@@ -58,3 +58,6 @@ class ButtonsLocators:
     CONTROL_RIGHT_CLICK_BUTTON = ("xpath", "//p[@id='rightClickMessage']")
     CONTROL_DYNAMIC_BUTTON = ("xpath", "//p[@id='dynamicClickMessage']")
 
+
+class LinksPageLocators:
+    LINK = ("xpath", "//a[@id='simpleLink']")

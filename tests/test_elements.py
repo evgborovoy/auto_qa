@@ -1,4 +1,4 @@
-from pages.elements_page import CheckBoxPage, RadioButtonPage, TextBoxPage, WebTablePage, ButtonsPage
+from pages.elements_page import *
 
 
 class TestElements:
@@ -80,7 +80,7 @@ class TestElements:
             web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
             web_table_page.open()
             person = web_table_page.add_record()
-            web_table_page.search_record(person[3]) # find by email
+            web_table_page.search_record(person[3])  # find by email
             web_table_page.delete_row()
             rows = web_table_page.check_records_list()
             assert person not in rows, "Record was not deleted"
@@ -98,7 +98,6 @@ class TestElements:
             button_page.open()
             button_page.double_click()
             result = button_page.check_status("double")
-            time.sleep(3)
             assert result is not None, "Double click not worked"
 
         def test_right_click(self, driver):
@@ -106,7 +105,6 @@ class TestElements:
             button_page.open()
             button_page.right_click()
             result = button_page.check_status("right")
-            time.sleep(4)
             assert result is not None, "Double click not worked"
 
         def test_dynamic_click(self, driver):
@@ -115,4 +113,11 @@ class TestElements:
             button_page.dynamic_click()
             result = button_page.check_status("dynamic")
             assert result is not None, "Double click not worked"
+
+    class TestLinksPage:
+        def test_link(self, driver):
+            links_page = LinksPage(driver, "https://demoqa.com/links")
+            links_page.open()
+            link = links_page.open_new_tab_link()
+            assert link == "https://demoqa.com/", "Redirect to wrong links or not open"
 

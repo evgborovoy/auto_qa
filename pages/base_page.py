@@ -46,3 +46,9 @@ class BasePage:
         actions = ActionChains(self.driver)
         actions.context_click(element)
         actions.perform()
+
+    def switch_to_new_tab(self, tab):
+        """tab: input -1 to switch to last tab, and 0 to first"""
+        tabs = self.driver.window_handles
+        # Usually new tab is last tab
+        self.driver.switch_to.window(tabs[tab])
