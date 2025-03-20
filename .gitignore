@@ -6,7 +6,7 @@ __pycache__/
 
 *.so
 
-
+media/
 bin/
 build/
 develop-eggs/

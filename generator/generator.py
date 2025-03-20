@@ -1,5 +1,7 @@
-from faker import Faker
+import random
 
+from faker import Faker
+import os
 from data.data import Person
 
 fake = Faker("ru_RU")
@@ -17,3 +19,11 @@ def generated_person():
         current_address=fake.address(),
         permanent_address=fake.address(),
     )
+
+
+def generate_file():
+    path = rf"{os.getcwd()}/media/testfile.txt"
+    file = open(path, "w+")
+    file.write(f"Some Text {random.randint(1, 10)}")
+    file.close()
+    return file.name, path

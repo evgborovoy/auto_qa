@@ -1,9 +1,10 @@
+import os
 import random
 
 import requests
 from selenium.webdriver.support.select import Select
 
-from generator.generator import generated_person
+from generator.generator import generated_person, generate_file
 from locators.elements_page_locator import *
 from pages.base_page import BasePage
 
@@ -166,3 +167,14 @@ class LinksPage(BasePage):
         self.switch_to_new_tab(-1)
         url = self.driver.current_url
         return url
+
+
+class UploadDownloadPage(BasePage):
+    locators = UploadDownloadLocators()
+
+    def upload_file(self):
+        file_name, path = generate_file()
+        self.element_is_visible(self.locators.UPLOAD).send_keys(path)
+        uploaded_path = self.element_is_visible(self.locators.UPLOADED_PATH).text
+        os.remove(path)
+        return file_name.split("/")[-1], uploaded_path.split("\\")[-1]
