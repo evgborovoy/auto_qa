@@ -61,3 +61,9 @@ class ButtonsLocators:
 
 class LinksPageLocators:
     LINK = ("xpath", "//a[@id='simpleLink']")
+
+
+class UploadDownloadLocators:
+    DOWNLOAD = ("xpath", "//a[@id='downloadButton']")
+    UPLOAD = ("xpath", "//input[@id='uploadFile']")
+    UPLOADED_PATH = ("xpath", "//p[@id='uploadedFilePath']")

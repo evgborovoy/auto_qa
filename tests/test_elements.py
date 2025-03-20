@@ -1,3 +1,5 @@
+import time
+
 from pages.elements_page import *
 
 
@@ -121,3 +123,10 @@ class TestElements:
             link = links_page.open_new_tab_link()
             assert link == "https://demoqa.com/", "Redirect to wrong links or not open"
 
+    class TestUploadDownloadPage:
+
+        def test_upload(self, driver):
+            upload_download_page = UploadDownloadPage(driver, "https://demoqa.com/upload-download")
+            upload_download_page.open()
+            file_name, uploaded_file_name = upload_download_page.upload_file()
+            assert file_name == uploaded_file_name, "File was not uploaded"
