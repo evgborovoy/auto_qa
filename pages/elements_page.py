@@ -1,7 +1,6 @@
 import os
 import random
 
-import requests
 from selenium.webdriver.support.select import Select
 
 from generator.generator import generated_person, generate_file
@@ -178,3 +177,29 @@ class UploadDownloadPage(BasePage):
         uploaded_path = self.element_is_visible(self.locators.UPLOADED_PATH).text
         os.remove(path)
         return file_name.split("/")[-1], uploaded_path.split("\\")[-1]
+
+
+class DynamicPropertiesPage(BasePage):
+    locators = DynamicPropertiesPageLocators()
+
+    def enable_button(self):
+        button = self.element_is_clickable(self.locators.ENABLE_AFTER_BUTTON)
+        return button
+
+    def get_button_text_color(self):
+        button = self.element_is_present(self.locators.COLOR_CHANGE_BUTTON)
+        return button.value_of_css_property("color")
+
+    def wait_for_color_change(self):
+        initial_color = self.get_button_text_color()
+
+        def color_changed(driver):
+            current_color = self.get_button_text_color()
+            return current_color != initial_color
+
+        self.wait_event(color_changed)
+        return self.get_button_text_color()
+
+    def visible_button(self):
+        button = self.element_is_visible(self.locators.VISIBLE_AFTER_BUTTON)
+        return button

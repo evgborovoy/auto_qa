@@ -1,5 +1,3 @@
-import time
-
 from pages.elements_page import *
 
 
@@ -130,3 +128,24 @@ class TestElements:
             upload_download_page.open()
             file_name, uploaded_file_name = upload_download_page.upload_file()
             assert file_name == uploaded_file_name, "File was not uploaded"
+
+
+    class TestDynamicPropertiesPage:
+
+        def test_enable_button(self, driver):
+            dynamic_properties_page = DynamicPropertiesPage(driver, "https://demoqa.com/dynamic-properties")
+            dynamic_properties_page.open()
+            button = dynamic_properties_page.enable_button()
+            assert button is not None, "Button is disabled"
+
+        def test_color_change_button(self, driver):
+            dynamic_properties_page = DynamicPropertiesPage(driver, "https://demoqa.com/dynamic-properties")
+            dynamic_properties_page.open()
+            color = dynamic_properties_page.wait_for_color_change()
+            assert color == 'rgba(220, 53, 69, 1)', "Color not match"
+
+        def test_visible_button(self, driver):
+            dynamic_properties_page = DynamicPropertiesPage(driver, "https://demoqa.com/dynamic-properties")
+            dynamic_properties_page.open()
+            button = dynamic_properties_page.visible_button()
+            assert button is not None, "Button is not appear"
