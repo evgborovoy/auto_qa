@@ -141,8 +141,10 @@ class TestElements:
         def test_color_change_button(self, driver):
             dynamic_properties_page = DynamicPropertiesPage(driver, "https://demoqa.com/dynamic-properties")
             dynamic_properties_page.open()
+            initial_color = dynamic_properties_page.get_button_text_color()
             color = dynamic_properties_page.wait_for_color_change()
-            assert color == 'rgba(220, 53, 69, 1)', "Color not match"
+            assert color == 'rgba(220, 53, 69, 1)', "Color not red"
+            assert initial_color != color, "Button not change color"
 
         def test_visible_button(self, driver):
             dynamic_properties_page = DynamicPropertiesPage(driver, "https://demoqa.com/dynamic-properties")
