@@ -18,6 +18,7 @@ def generated_person():
         email=fake.email(),
         current_address=fake.address(),
         permanent_address=fake.address(),
+        phone=random.randint(1000000000, 9999999999)
     )
 
 
