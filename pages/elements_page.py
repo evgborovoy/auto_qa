@@ -1,6 +1,7 @@
 import os
 import random
 
+from selenium.common import TimeoutException
 from selenium.webdriver.support.select import Select
 
 from generator.generator import generated_person, generate_file
@@ -183,8 +184,11 @@ class DynamicPropertiesPage(BasePage):
     locators = DynamicPropertiesPageLocators()
 
     def enable_button(self):
-        button = self.element_is_clickable(self.locators.ENABLE_AFTER_BUTTON)
-        return button
+        try:
+            self.element_is_clickable(self.locators.ENABLE_AFTER_BUTTON)
+        except TimeoutException:
+            return False
+        return True
 
     def get_button_text_color(self):
         button = self.element_is_present(self.locators.COLOR_CHANGE_BUTTON)
@@ -201,5 +205,8 @@ class DynamicPropertiesPage(BasePage):
         return self.get_button_text_color()
 
     def visible_button(self):
-        button = self.element_is_visible(self.locators.VISIBLE_AFTER_BUTTON)
-        return button
+        try:
+            self.element_is_visible(self.locators.VISIBLE_AFTER_BUTTON)
+        except TimeoutException:
+            return False
+        return True
