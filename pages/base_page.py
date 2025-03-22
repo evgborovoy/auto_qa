@@ -51,7 +51,10 @@ class BasePage:
         actions.perform()
 
     def switch_to_window(self, tab):
-        """tab: input -1 to switch to last tab, and 0 to first"""
+        """tab: input window index (-1 for last opened tab)"""
         tabs = self.driver.window_handles
         # Usually new tab is last tab
         self.driver.switch_to.window(tabs[tab])
+
+    def get_alert(self, timeout=5):
+        return WebDriverWait(self.driver, timeout).until(EC.alert_is_present())
