@@ -58,3 +58,6 @@ class BasePage:
 
     def get_alert(self, timeout=5):
         return WebDriverWait(self.driver, timeout).until(EC.alert_is_present())
+
+    def switch_to_frame(self, element):
+        return self.driver.switch_to.frame(element)

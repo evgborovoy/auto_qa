@@ -1,10 +1,11 @@
 import pytest
 
-from pages.alerts_frames_waindows_page import BrowserWindowsPage, AlertsPage
+from pages.alerts_frames_waindows_page import BrowserWindowsPage, AlertsPage, FramesPage
 
 
 class TestAlertsFramesWindows:
     class TestBrowserWindows:
+
         def test_new_tab(self, driver):
             browser_windows_page = BrowserWindowsPage(driver, "https://demoqa.com/browser-windows")
             browser_windows_page.open()
@@ -63,3 +64,13 @@ class TestAlertsFramesWindows:
             result_text = alert_page.get_prompt_box_result().split(" ")[2:]  # Убираем лишние слова
             result_text = " ".join(result_text)
             assert result_text == text, "Entered text does not match"
+
+    class TestFramesPage:
+
+        def test_check_frame(self, driver):
+            frames_page = FramesPage(driver, "https://demoqa.com/frames")
+            frames_page.open()
+            result_1 = frames_page.check_frame("frame1")
+            result_2 = frames_page.check_frame("frame2")
+            assert result_1 == ('This is a sample page', '500px', '350px'), "Wrong frame"
+            assert result_2 == ('This is a sample page', '100px', '100px'), "Wrong frame"
