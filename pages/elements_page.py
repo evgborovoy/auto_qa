@@ -164,7 +164,7 @@ class LinksPage(BasePage):
 
     def open_new_tab_link(self):
         self.element_is_visible(self.locators.LINK).click()
-        self.switch_to_new_tab(-1)
+        self.switch_to_window(-1)
         url = self.driver.current_url
         return url
 
