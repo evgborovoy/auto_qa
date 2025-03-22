@@ -2,7 +2,7 @@ import pytest
 from selenium.common import TimeoutException
 
 from pages.base_page import BasePage
-from locators.alerts_frames_windows_locator import BrowserWindowsPageLocators, AlertsPageLocators
+from locators.alerts_frames_windows_locator import BrowserWindowsPageLocators, AlertsPageLocators, FramesPageLocators
 
 
 class BrowserWindowsPage(BasePage):
@@ -56,3 +56,24 @@ class AlertsPage(BasePage):
         alert = self.get_alert()
         alert.send_keys(text)
         alert.accept()
+
+class FramesPage(BasePage):
+    locators = FramesPageLocators()
+
+
+    def get_frame_info(self, locator):
+        frame = self.element_is_present(locator)
+        height = frame.get_attribute("height")
+        width = frame.get_attribute("width")
+        self.switch_to_frame(frame)
+        text = self.element_is_present(self.locators.FRAME_TEXT).text
+        self.driver.switch_to.default_content()
+        return text, width, height
+
+    def check_frame(self, frame_num):
+        if frame_num == "frame1":
+            return self.get_frame_info(self.locators.BIG_FRAME)
+        elif frame_num == "frame2":
+            return self.get_frame_info(self.locators.SMALL_FRAME)
+        else:
+            pytest.fail(f"The frame does not exist")

@@ -10,3 +10,8 @@ class AlertsPageLocators:
     CONFIRM_RESULT = ("xpath", "//span[@id='confirmResult']")
     PROMPT_ALERT_BUTTON = ("xpath", "//button[@id='promtButton']")
     PROMPT_RESULT = ("xpath", "//span[@id='promptResult']")
+
+class FramesPageLocators:
+    BIG_FRAME = ("xpath", "//iframe[@id='frame1']")
+    SMALL_FRAME = ("xpath", "//iframe[@id='frame2']")
+    FRAME_TEXT = ("xpath", "//h1[@id='sampleHeading']")
