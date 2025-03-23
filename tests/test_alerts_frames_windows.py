@@ -1,6 +1,6 @@
 import pytest
 
-from pages.alerts_frames_waindows_page import BrowserWindowsPage, AlertsPage, FramesPage
+from pages.alerts_frames_waindows_page import BrowserWindowsPage, AlertsPage, FramesPage, NestedFramesPage
 
 
 class TestAlertsFramesWindows:
@@ -74,3 +74,12 @@ class TestAlertsFramesWindows:
             result_2 = frames_page.check_frame("frame2")
             assert result_1 == ('This is a sample page', '500px', '350px'), "Wrong frame"
             assert result_2 == ('This is a sample page', '100px', '100px'), "Wrong frame"
+
+    class TestNestedFramesPage:
+
+        def test_(self, driver):
+            nested_frames_page = NestedFramesPage(driver, "https://demoqa.com/nestedframes")
+            nested_frames_page.open()
+            p_text, c_text = nested_frames_page.get_nested_frames_text()
+            assert p_text == "Parent frame", "Text in parent frame does not match"
+            assert c_text == "Child Iframe", "Text in child frame does not match"

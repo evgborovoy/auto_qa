@@ -11,7 +11,15 @@ class AlertsPageLocators:
     PROMPT_ALERT_BUTTON = ("xpath", "//button[@id='promtButton']")
     PROMPT_RESULT = ("xpath", "//span[@id='promptResult']")
 
+
 class FramesPageLocators:
     BIG_FRAME = ("xpath", "//iframe[@id='frame1']")
     SMALL_FRAME = ("xpath", "//iframe[@id='frame2']")
     FRAME_TEXT = ("xpath", "//h1[@id='sampleHeading']")
+
+
+class NestedFramesPageLocators:
+    PARENT_FRAME = ("xpath", "//iframe[@id='frame1']")
+    PARENT_FRAME_TEXT = ("xpath", "//body")
+    CHILD_FRAME = ("xpath", "//iframe[@srcdoc='<p>Child Iframe</p>']")
+    CHILD_FRAME_TEXT = ("xpath", "//p")
