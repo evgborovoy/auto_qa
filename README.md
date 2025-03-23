@@ -1,4 +1,4 @@
-The project includes tests for various scenarios, such as:
+The project includes more then 25 tests for various scenarios, such as:
 - Working with text fields.
 - Checking checkboxes and radio buttons.
 - Testing dynamic properties of elements (color change, button appearance, etc.).
