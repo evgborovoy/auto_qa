@@ -6,7 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 @pytest.fixture(scope="function")
 def driver():
-    service = Service(executable_path=ChromeDriverManager().install())
+    # service = Service(executable_path=ChromeDriverManager().install())
     options = webdriver.ChromeOptions()
     options.page_load_strategy = "eager"
 
@@ -15,7 +15,7 @@ def driver():
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
 
-    driver = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(options=options)
     driver.maximize_window()
     yield driver
     driver.quit()
