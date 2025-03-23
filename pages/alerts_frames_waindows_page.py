@@ -3,7 +3,7 @@ from selenium.common import TimeoutException
 
 from pages.base_page import BasePage
 from locators.alerts_frames_windows_locator import BrowserWindowsPageLocators, AlertsPageLocators, FramesPageLocators, \
-    NestedFramesPageLocators
+    NestedFramesPageLocators, ModalDialogsPageLocators
 
 
 class BrowserWindowsPage(BasePage):
@@ -94,3 +94,22 @@ class NestedFramesPage(BasePage):
         child_text = self.get_frame_text(self.locators.CHILD_FRAME, self.locators.CHILD_FRAME_TEXT)
         self.driver.switch_to.default_content()
         return parent_text, child_text
+
+
+class ModalDialogsPage(BasePage):
+    locators = ModalDialogsPageLocators()
+
+    def get_modal_title(self, button_locator, title_locator):
+        self.element_is_clickable(button_locator).click()
+        title = self.element_is_visible(title_locator).text
+        return title
+
+    def get_small_modal_title(self):
+        button = self.locators.SMALL_MODAL_BUTTON
+        title = self.locators.SMALL_MODAL_TITLE
+        return self.get_modal_title(button, title)
+
+    def get_large_modal_title(self):
+        button = self.locators.LARGE_MODAL_BUTTON
+        title = self.locators.LARGE_MODAL_TITLE
+        return self.get_modal_title(button, title)
