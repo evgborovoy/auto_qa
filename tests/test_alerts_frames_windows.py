@@ -1,6 +1,7 @@
 import pytest
 
-from pages.alerts_frames_waindows_page import BrowserWindowsPage, AlertsPage, FramesPage
+from pages.alerts_frames_waindows_page import BrowserWindowsPage, AlertsPage, FramesPage, NestedFramesPage, \
+    ModalDialogsPage
 
 
 class TestAlertsFramesWindows:
@@ -74,3 +75,26 @@ class TestAlertsFramesWindows:
             result_2 = frames_page.check_frame("frame2")
             assert result_1 == ('This is a sample page', '500px', '350px'), "Wrong frame"
             assert result_2 == ('This is a sample page', '100px', '100px'), "Wrong frame"
+
+    class TestNestedFramesPage:
+
+        def test_nested_frames(self, driver):
+            nested_frames_page = NestedFramesPage(driver, "https://demoqa.com/nestedframes")
+            nested_frames_page.open()
+            p_text, c_text = nested_frames_page.get_nested_frames_text()
+            assert p_text == "Parent frame", "Text in parent frame does not match"
+            assert c_text == "Child Iframe", "Text in child frame does not match"
+
+    class TestModalDialogsPage:
+
+        def test_small_modal_dialogs(self, driver):
+            modal_dialogs_page = ModalDialogsPage(driver,"https://demoqa.com/modal-dialogs")
+            modal_dialogs_page.open()
+            title = modal_dialogs_page.get_small_modal_title()
+            assert title == "Small Modal", "Title does not match"
+
+        def test_large_modal_dialogs(self, driver):
+            modal_dialogs_page = ModalDialogsPage(driver,"https://demoqa.com/modal-dialogs")
+            modal_dialogs_page.open()
+            title = modal_dialogs_page.get_large_modal_title()
+            assert title == "Large Modal", "Title does not match"
