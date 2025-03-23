@@ -1,5 +1,6 @@
 import time
 
+import allure
 from selenium.webdriver.common.keys import Keys
 
 from generator.generator import generated_person, generate_file
@@ -9,7 +10,6 @@ from pages.base_page import BasePage
 
 class PracticeFormPage(BasePage):
     locators = PracticeFormPageLocators()
-
 
     def fill_form(self):
         person = next(generated_person())

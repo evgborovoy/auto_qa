@@ -1,6 +1,7 @@
 import os
 import random
 
+import allure
 from selenium.common import TimeoutException
 from selenium.webdriver.support.select import Select
 
@@ -18,11 +19,16 @@ class TextBoxPage(BasePage):
         email = person.email
         current_address = person.current_address
         permanent_address = person.permanent_address
-        self.element_is_visible(self.locators.FULL_NAME).send_keys(full_name)
-        self.element_is_visible(self.locators.EMAIL).send_keys(email)
-        self.element_is_visible(self.locators.CURRENT_ADDRESS).send_keys(current_address)
-        self.element_is_visible(self.locators.PERMANENT_ADDRESS).send_keys(permanent_address)
-        self.element_is_visible(self.locators.SUBMIT).click()
+        with allure.step(f"Input {full_name}"):
+            self.element_is_visible(self.locators.FULL_NAME).send_keys(full_name)
+        with allure.step(f"Input {email}"):
+            self.element_is_visible(self.locators.EMAIL).send_keys(email)
+        with allure.step(f"Input {current_address}"):
+            self.element_is_visible(self.locators.CURRENT_ADDRESS).send_keys(current_address)
+        with allure.step(f"Input {permanent_address}"):
+            self.element_is_visible(self.locators.PERMANENT_ADDRESS).send_keys(permanent_address)
+        with allure.step("Click Submit button"):
+            self.element_is_visible(self.locators.SUBMIT).click()
         return full_name, email, current_address, permanent_address
 
     def check_filled_info(self):
@@ -36,6 +42,7 @@ class TextBoxPage(BasePage):
 class CheckBoxPage(BasePage):
     locators = CheckBoxLocators()
 
+    @allure.step("Open full list")
     def open_full_list(self):
         self.element_is_visible(self.locators.EXPAND_ALL_BUTTON).click()
 
@@ -72,7 +79,8 @@ class RadioButtonPage(BasePage):
             "yes": self.locators.YES_RADIO,
             "impressive": self.locators.IMPRESSIVE_RADIO,
         }
-        self.element_is_visible(buttons.get(button)).click()
+        with allure.step(f"Click on {button}"):
+            self.element_is_visible(buttons.get(button)).click()
 
     def get_selected_text(self):
         return self.element_is_present(self.locators.SELECTED_FIELD).text
@@ -93,14 +101,22 @@ class WebTablePage(BasePage):
         age = person_data.age
         salary = person_data.salary
         department = person_data.department
-        self.element_is_visible(self.locators.ADD_BUTTON).click()
-        self.element_is_visible(self.locators.FIRSTNAME_FIELD).send_keys(first_name)
-        self.element_is_visible(self.locators.LASTNAME_FIELD).send_keys(last_name)
-        self.element_is_visible(self.locators.EMAIL_FIELD).send_keys(email)
-        self.element_is_visible(self.locators.AGE_FIELD).send_keys(age)
-        self.element_is_visible(self.locators.SALARY_FIELD).send_keys(salary)
-        self.element_is_visible(self.locators.DEPARTMENT_FIELD).send_keys(department)
-        self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
+        with allure.step(f"Click on Add button"):
+            self.element_is_visible(self.locators.ADD_BUTTON).click()
+        with allure.step(f"Input {first_name}"):
+            self.element_is_visible(self.locators.FIRSTNAME_FIELD).send_keys(first_name)
+        with allure.step(f"Input {last_name}"):
+            self.element_is_visible(self.locators.LASTNAME_FIELD).send_keys(last_name)
+        with allure.step(f"Input {email}"):
+            self.element_is_visible(self.locators.EMAIL_FIELD).send_keys(email)
+        with allure.step(f"Input {age}"):
+            self.element_is_visible(self.locators.AGE_FIELD).send_keys(age)
+        with allure.step(f"Input {salary}"):
+            self.element_is_visible(self.locators.SALARY_FIELD).send_keys(salary)
+        with allure.step(f"Input {department}"):
+            self.element_is_visible(self.locators.DEPARTMENT_FIELD).send_keys(department)
+        with allure.step(f"Click on Submit button"):
+            self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
         return first_name, last_name, str(age), email, str(salary), department
 
     def check_records_list(self):
@@ -116,12 +132,16 @@ class WebTablePage(BasePage):
     def edit_person_info(self):
         person_info = next(generated_person())
         age = person_info.age
-        self.element_is_visible(self.locators.EDIT_ROW_BUTTON).click()
+        with allure.step("Click on edit button"):
+            self.element_is_visible(self.locators.EDIT_ROW_BUTTON).click()
         self.element_is_visible(self.locators.AGE_FIELD).clear()
-        self.element_is_visible(self.locators.AGE_FIELD).send_keys(age)
-        self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
+        with allure.step(f"Input {age}"):
+            self.element_is_visible(self.locators.AGE_FIELD).send_keys(age)
+        with allure.step("Click on Submit button"):
+            self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
         return str(age)
 
+    @allure.step("Click on Delete button")
     def delete_row(self):
         self.element_is_visible(self.locators.DELETE_ROW_BUTTON).click()
 

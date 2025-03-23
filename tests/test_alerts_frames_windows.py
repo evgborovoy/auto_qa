@@ -1,12 +1,14 @@
-import pytest
-
+import allure
 from pages.alerts_frames_waindows_page import BrowserWindowsPage, AlertsPage, FramesPage, NestedFramesPage, \
     ModalDialogsPage
 
 
+@allure.suite("Alerts Frames Windows")
 class TestAlertsFramesWindows:
+    @allure.feature("Browser Windows page")
     class TestBrowserWindows:
 
+        @allure.title("Open new tab")
         def test_new_tab(self, driver):
             browser_windows_page = BrowserWindowsPage(driver, "https://demoqa.com/browser-windows")
             browser_windows_page.open()
@@ -15,8 +17,10 @@ class TestAlertsFramesWindows:
             assert tabs_count > 1, "New tab not open"
             assert text == expected_text, "Wrong tab was opened"
 
+    @allure.feature("Alerts page")
     class TestAlertsPage:
 
+        @allure.title("Open simple alert")
         def test_simple_alert(self, driver):
             alert_page = AlertsPage(driver, "https://demoqa.com/alerts")
             alert_page.open()
@@ -24,6 +28,7 @@ class TestAlertsFramesWindows:
             alert_text = alert_page.get_alert_text()
             assert alert_text == "You clicked a button", "Text in alert does not match"
 
+        @allure.title("Alert appear after 5 sec")
         def test_delayed_alert(self, driver):
             alert_page = AlertsPage(driver, "https://demoqa.com/alerts")
             alert_page.open()
@@ -31,6 +36,7 @@ class TestAlertsFramesWindows:
             alert_text = alert_page.get_alert_text(timeout=10)
             assert alert_text == "This alert appeared after 5 seconds", "Text in alert does not match"
 
+        @allure.title("Accept confirm alert")
         def test_confirm_alert_accept(self, driver):
             alert_page = AlertsPage(driver, "https://demoqa.com/alerts")
             alert_page.open()
@@ -42,6 +48,7 @@ class TestAlertsFramesWindows:
             result_text = alert_page.get_confirm_result()
             assert result_text == "You selected Ok", "Wrong action in alert"
 
+        @allure.title("Dismiss confirm alert")
         def test_confirm_alert_dismiss(self, driver):
             alert_page = AlertsPage(driver, "https://demoqa.com/alerts")
             alert_page.open()
@@ -53,6 +60,7 @@ class TestAlertsFramesWindows:
             result_text = alert_page.get_confirm_result()
             assert result_text == "You selected Cancel", "Wrong action in alert"
 
+        @allure.title("Input name in prompt alert")
         def test_prompt_box(self, driver):
             alert_page = AlertsPage(driver, "https://demoqa.com/alerts")
             alert_page.open()
@@ -66,8 +74,10 @@ class TestAlertsFramesWindows:
             result_text = " ".join(result_text)
             assert result_text == text, "Entered text does not match"
 
+    @allure.feature("Frames page")
     class TestFramesPage:
 
+        @allure.title("Switch between frames")
         def test_check_frame(self, driver):
             frames_page = FramesPage(driver, "https://demoqa.com/frames")
             frames_page.open()
@@ -76,8 +86,10 @@ class TestAlertsFramesWindows:
             assert result_1 == ('This is a sample page', '500px', '350px'), "Wrong frame"
             assert result_2 == ('This is a sample page', '100px', '100px'), "Wrong frame"
 
+    @allure.feature("Nested Frames page")
     class TestNestedFramesPage:
 
+        @allure.title("Switch in nested frames")
         def test_nested_frames(self, driver):
             nested_frames_page = NestedFramesPage(driver, "https://demoqa.com/nestedframes")
             nested_frames_page.open()
@@ -85,16 +97,19 @@ class TestAlertsFramesWindows:
             assert p_text == "Parent frame", "Text in parent frame does not match"
             assert c_text == "Child Iframe", "Text in child frame does not match"
 
+    @allure.feature("Modal Dialogs page")
     class TestModalDialogsPage:
 
+        @allure.title("Small modal")
         def test_small_modal_dialogs(self, driver):
-            modal_dialogs_page = ModalDialogsPage(driver,"https://demoqa.com/modal-dialogs")
+            modal_dialogs_page = ModalDialogsPage(driver, "https://demoqa.com/modal-dialogs")
             modal_dialogs_page.open()
             title = modal_dialogs_page.get_small_modal_title()
             assert title == "Small Modal", "Title does not match"
 
+        @allure.title("Large modal")
         def test_large_modal_dialogs(self, driver):
-            modal_dialogs_page = ModalDialogsPage(driver,"https://demoqa.com/modal-dialogs")
+            modal_dialogs_page = ModalDialogsPage(driver, "https://demoqa.com/modal-dialogs")
             modal_dialogs_page.open()
             title = modal_dialogs_page.get_large_modal_title()
             assert title == "Large Modal", "Title does not match"

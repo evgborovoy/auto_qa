@@ -1,3 +1,4 @@
+import allure
 import pytest
 from selenium.common import TimeoutException
 
@@ -8,7 +9,7 @@ from locators.alerts_frames_windows_locator import BrowserWindowsPageLocators, A
 
 class BrowserWindowsPage(BasePage):
     locators = BrowserWindowsPageLocators()
-
+    @allure.step("Open new tab")
     def new_tab(self):
         self.element_is_visible(self.locators.NEW_TAB_BUTTON).click()
         tabs_count = len(self.driver.window_handles)
@@ -38,6 +39,7 @@ class AlertsPage(BasePage):
     def get_prompt_box_result(self):
         return self.element_is_present(self.locators.PROMPT_RESULT).text
 
+    @allure.step("Get alert text")
     def get_alert_text(self, timeout=10):
         try:
             alert = self.get_alert(timeout=timeout)
@@ -45,17 +47,21 @@ class AlertsPage(BasePage):
         except TimeoutException:
             pytest.fail(f"Alert did not open within {timeout} seconds")
 
+    @allure.step("accept alert")
     def accept_alert(self):
         alert = self.get_alert()
         alert.accept()
 
+    @allure.step("dismiss alert")
     def dismiss_alert(self):
         alert = self.get_alert()
         alert.dismiss()
 
+
     def send_text_to_prompt(self, text):
         alert = self.get_alert()
-        alert.send_keys(text)
+        with allure.step(f"Input {text}"):
+            alert.send_keys(text)
         alert.accept()
 
 

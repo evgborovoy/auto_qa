@@ -1,10 +1,14 @@
-from pages.alerts_frames_waindows_page import AlertsPage
+import allure
+
 from pages.forms_page import PracticeFormPage
 
 
+@allure.suite("Forms")
 class TestForms:
+    @allure.feature("Practice form")
     class TestPracticeForm:
 
+        @allure.title("Fill form")
         def test_fill_form(self, driver):
             practice_form_page = PracticeFormPage(driver, "https://demoqa.com/automation-practice-form")
             practice_form_page.open()
