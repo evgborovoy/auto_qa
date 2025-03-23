@@ -33,6 +33,3 @@ class ModalDialogsPageLocators:
     LARGE_MODAL_BUTTON = ("xpath", "//button[@id='showLargeModal']")
     LARGE_MODAL_TITLE = ("xpath", "//div[@id='example-modal-sizes-title-lg']")
     LARGE_MODAL_CLOSE_BUTTON = ("xpath", "//button[@id='closeLargeModal']")
-
-
-
