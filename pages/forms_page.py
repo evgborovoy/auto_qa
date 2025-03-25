@@ -1,6 +1,3 @@
-import time
-
-import allure
 from selenium.webdriver.common.keys import Keys
 
 from generator.generator import generated_person, generate_file
@@ -26,7 +23,6 @@ class PracticeFormPage(BasePage):
         current_address = self.element_is_visible(self.locators.CURRENT_ADDRESS)
         self.go_to_element(current_address)
         current_address.send_keys(person.current_address)
-
         self.go_to_element(self.element_is_present(self.locators.STATE_SELECT))
         self.element_is_visible(self.locators.STATE_SELECT).click()
         self.element_is_visible(self.locators.STATE).send_keys(Keys.RETURN)
