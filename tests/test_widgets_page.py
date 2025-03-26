@@ -20,8 +20,8 @@ class TestWidgets:
         def test_start_progress_bar(self, driver):
             progress_bar_page = ProgressBarPage(driver, "https://demoqa.com/progress-bar")
             progress_bar_page.open()
-            before, after = progress_bar_page.progress_bar_action()
-            assert before != after, "Progress bar not start"
+            value = progress_bar_page.progress_bar_action()
+            assert value > 0, "Progress bar not start"
 
         @allure.title("Complete full progress bar")
         def test_fill_complete(self, driver):

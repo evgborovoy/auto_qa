@@ -34,11 +34,10 @@ class ProgressBarPage(BasePage):
         return self.element_is_present(self.locators.PROGRESS_INDICATOR).text
 
     def progress_bar_action(self):
-        before = self._get_progress_info()
         self._start_progress_bar()
         time.sleep(random.randint(1, 5))
-        after = self._get_progress_info()
-        return before, after
+        value = self._get_progress_info()
+        return value
 
     def complete_progress_bar(self):
         self._start_progress_bar()
