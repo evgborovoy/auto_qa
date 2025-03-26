@@ -74,7 +74,7 @@ class CheckBoxPage(BasePage):
 class RadioButtonPage(BasePage):
     locators = RadioButtonLocators()
 
-    def click_on_radio(self, button):
+    def _click_on_radio(self, button):
         buttons = {
             "yes": self.locators.YES_RADIO,
             "impressive": self.locators.IMPRESSIVE_RADIO,
@@ -82,8 +82,16 @@ class RadioButtonPage(BasePage):
         with allure.step(f"Click on {button}"):
             self.element_is_visible(buttons.get(button)).click()
 
-    def get_selected_text(self):
+    def _get_selected_text(self):
         return self.element_is_present(self.locators.SELECTED_FIELD).text
+
+    def check_yes_radio(self):
+        self._click_on_radio("yes")
+        return self._get_selected_text()
+
+    def check_impressive_radio(self):
+        self._click_on_radio("impressive")
+        return self._get_selected_text()
 
     def get_no_radio_status(self):
         status = self.element_is_present(self.locators.NO_RADIO).is_enabled()

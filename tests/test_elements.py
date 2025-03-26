@@ -40,16 +40,14 @@ class TestElements:
         def test_yes_radio_button(self, driver):
             radio_button_page = RadioButtonPage(driver, "https://demoqa.com/radio-button")
             radio_button_page.open()
-            radio_button_page.click_on_radio("yes")
-            result = radio_button_page.get_selected_text()
+            result = radio_button_page.check_yes_radio()
             assert result == "Yes", "Yes radio button not selected"
 
         @allure.title("Check 'Impressive' radio button ")
         def test_impressive_radio_button(self, driver):
             radio_button_page = RadioButtonPage(driver, "https://demoqa.com/radio-button")
             radio_button_page.open()
-            radio_button_page.click_on_radio("impressive")
-            result = radio_button_page.get_selected_text()
+            result = radio_button_page.check_impressive_radio()
             assert result == "Impressive", "Impressive radio button not selected"
 
         @allure.title("Check disabled radio button")
